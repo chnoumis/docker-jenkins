@@ -3,7 +3,7 @@ FROM jenkins:1.596
 MAINTAINER chnoumis <it@chnoumis.com>
 
 USER root
-RUN apt-get update && apt-get install -y sudo maven ruby libaio1 libaio-dev
+RUN apt-get update && apt-get install -y sudo maven ruby libaio1 libaio-dev ttf-mscorefonts-installer
 RUN echo 'jenkins ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 # Install docker
 RUN sh -c "curl https://get.docker.io/gpg | apt-key add -" && \
