@@ -1,6 +1,6 @@
 FROM jenkins:1.596
 
-MAINTAINER chnoumis <it@chnoumis.com>
+MAINTAINER chnoumis
 
 USER root
 RUN apt-get update && apt-get install -y sudo maven ruby libaio1 libaio-dev
@@ -11,13 +11,10 @@ sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.
 apt-get update && apt-get install -y lxc-docker-1.4.1
 
 # Font installation 
-echo "deb http://us-east-1.ec2.archive.ubuntu.com/ubuntu/ saucy multiverse" | sudo tee -a /etc/apt/sources.list && \
-echo "deb-src http://us-east-1.ec2.archive.ubuntu.com/ubuntu/ saucy multiverse" | sudo tee -a /etc/apt/sources.list && \
-echo "deb http://us-east-1.ec2.archive.ubuntu.com/ubuntu/ saucy-updates multiverse" | sudo tee -a /etc/apt/sources.list && \
-echo "deb-src http://us-east-1.ec2.archive.ubuntu.com/ubuntu/ saucy-updates multiverse" | sudo tee -a /etc/apt/sources.list && \
+RUN echo "deb http://ftp.de.debian.org/debian sid main contrib" | tee -a /etc/apt/sources.list && \
 apt-get update
 # preselect yes for ms EULA
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections && \
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \
 apt-get install -y ttf-mscorefonts-installer
 
 USER jenkins
